@@ -1,4 +1,4 @@
-import ThemeToggle from "../ui/ThemeToggle";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default function Header() {
     const scrollToSection = (id: string) => {
