@@ -38,9 +38,20 @@ export default function ThemeToggle() {
         );
     };
 
+    const label =
+        theme === "light" ? "Switch to dark mode" : "Switch to light mode";
+
     return (
-        <Button onClick={toggleTheme} variant="ghost">
-            {theme === "light" ? "Dark mode" : "Light mode"}
+        <Button
+            aria-label={label}
+            className="theme-toggle"
+            onClick={toggleTheme}
+            title={label}
+            variant="ghost"
+        >
+            <span aria-hidden="true" className="theme-toggle-icon">
+                {theme === "light" ? "☾" : "☀"}
+            </span>
         </Button>
     );
 }

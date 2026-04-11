@@ -228,6 +228,16 @@ button {
     color: var(--text);
 }
 
+.theme-toggle {
+    min-width: 3rem;
+    padding: 0.7rem;
+}
+
+.theme-toggle-icon {
+    font-size: 1rem;
+    line-height: 1;
+}
+
 .panel {
     padding: 1.5rem;
 }
