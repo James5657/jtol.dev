@@ -270,6 +270,7 @@ button {
 }
 
 .feature-card {
+    position: relative;
     padding: 1.25rem;
     border-radius: 20px;
     border: 1px solid var(--line);
@@ -304,4 +305,18 @@ button {
         max-width: none;
         font-size: clamp(2.6rem, 13vw, 4rem);
     }
+}
+
+.github-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.25rem;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.github-icon:hover {
+    opacity: 1;
 }
