@@ -51,7 +51,7 @@ export default function App() {
                                 <h2>{item}</h2>
                                 <p>
                                     Replace this placeholder copy with your own
-                                    content when you're ready.
+                                    content when you're ready to go.
                                 </p>
                             </article>
                         ))}
