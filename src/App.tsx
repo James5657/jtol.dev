@@ -1,57 +1,24 @@
 import Header from "@/components/layout/Header";
-import AboutSection from "@/components/sections/AboutSection";
-import ProjectsSection from "@/components/sections/ProjectsSection";
-import Button from "@/components/ui/Button";
+import About from "@/components/sections/About";
+import Coursework from "@/components/sections/Coursework";
+import Hero from "@/components/sections/Hero";
+import Projects from "@/components/sections/Projects";
+import Skills from "@/components/sections/Skills";
 
-const stack = ["React", "TypeScript", "JavaScript", "Software Engineering"];
+export const scrollToSection = (id: string) => {
+	document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+};
 
 export default function App() {
-	const scrollToSection = (id: string) => {
-		document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-	};
-
 	return (
 		<div className="site-shell">
 			<Header />
 			<main className="page-content">
-				<section className="hero">
-					<div className="hero-copy">
-						<p className="eyebrow">Computer Science Student</p>
-						<h1>James Harrison</h1>
-						<p className="hero-subtitle">
-							Senior at The University of Texas at Dallas pursuing software
-							engineering opportunities.
-						</p>
-						<p className="lede">
-							I am building a strong foundation in software engineering through
-							coursework, personal projects, and hands-on development. This
-							portfolio highlights the work I am doing now and the kind of
-							engineering roles I want to grow into.
-						</p>
-						<div className="hero-actions">
-							<a className="button button-primary" href="mailto:hello@jtol.dev">
-								Contact me
-							</a>
-							<Button
-								onClick={() => scrollToSection("work")}
-								variant="secondary"
-							>
-								View projects
-							</Button>
-						</div>
-					</div>
-					<aside className="hero-card">
-						<p className="section-label">Current focus</p>
-						<ul className="stack-list">
-							{stack.map((item) => (
-								<li key={item}>{item}</li>
-							))}
-						</ul>
-					</aside>
-				</section>
-
-				<AboutSection />
-				<ProjectsSection />
+				<Hero />
+				<About />
+				<Projects />
+				<Coursework />
+				<Skills />
 
 				<section className="panel cta-panel">
 					<div>
