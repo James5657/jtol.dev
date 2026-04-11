@@ -1,6 +1,6 @@
-import ProjectsSection from "@/components/sections/ProjectsSection";
 import Header from "@/components/layout/Header";
 import AboutSection from "@/components/sections/AboutSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
 import Button from "@/components/ui/Button";
 
 const stack = ["React", "TypeScript", "JavaScript", "Software Engineering"];
