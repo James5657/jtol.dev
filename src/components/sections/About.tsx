@@ -1,4 +1,4 @@
-export default function AboutSection() {
+export default function About() {
 	return (
 		<section className="panel section-grid" id="about">
 			<div>

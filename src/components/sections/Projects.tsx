@@ -8,7 +8,7 @@ const projects = [
 	},
 ];
 
-export default function ProjectsSection() {
+export default function Projects() {
 	return (
 		<section className="panel" id="work">
 			<div className="section-heading">
