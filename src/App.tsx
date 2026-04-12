@@ -11,28 +11,30 @@ export const scrollToSection = (id: string) => {
 
 export default function App() {
 	return (
-		<div className="site-shell">
+		<div className="root">
 			<Header />
-			<main className="page-content">
-				<Hero />
-				<About />
-				<Projects />
-				<Coursework />
-				<Skills />
+			<Hero />
+			<div className="site-shell">
+				<main className="page-content">
+					<About />
+					<Projects />
+					<Coursework />
+					<Skills />
 
-				<section className="panel cta-panel">
-					<div>
-						<p className="section-label">Opportunities</p>
-						<h2>
-							Looking for internship and early-career software engineering
-							roles.
-						</h2>
-					</div>
-					<a className="button button-primary" href="mailto:hello@jtol.dev">
-						Reach out
-					</a>
-				</section>
-			</main>
+					<section className="panel cta-panel">
+						<div>
+							<p className="section-label">Opportunities</p>
+							<h2>
+								Looking for internship and early-career software engineering
+								roles.
+							</h2>
+						</div>
+						<a className="button button-primary" href="mailto:hello@jtol.dev">
+							Reach out
+						</a>
+					</section>
+				</main>
+			</div>
 		</div>
 	);
 }

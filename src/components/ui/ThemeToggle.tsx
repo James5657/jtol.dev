@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 import Button from "@/components/ui/Button";
 
 const themeStorageKey = "jtol-theme";
@@ -48,7 +49,11 @@ export default function ThemeToggle() {
 			variant="ghost"
 		>
 			<span aria-hidden="true" className="theme-toggle-icon">
-				{theme === "light" ? "☾" : "☀"}
+				{theme === "light" ? (
+					<IoMoonOutline size={18} />
+				) : (
+					<IoSunnyOutline size={18} />
+				)}
 			</span>
 		</Button>
 	);
