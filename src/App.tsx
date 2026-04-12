@@ -1,9 +1,11 @@
+import Announcement from "@/components/layout/Announcement";
 import Header from "@/components/layout/Header";
 import About from "@/components/sections/About";
 import Coursework from "@/components/sections/Coursework";
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
+import { WEBSITE_VERSION } from "@/constants/global";
 
 export const scrollToSection = (id: string) => {
 	document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -12,6 +14,9 @@ export const scrollToSection = (id: string) => {
 export default function App() {
 	return (
 		<div className="root">
+			{WEBSITE_VERSION === "development" && (
+				<Announcement message="This website is currently in development." />
+			)}
 			<Header />
 			<Hero />
 			<div className="site-shell">
