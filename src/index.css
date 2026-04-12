@@ -13,6 +13,7 @@
 	--button-text: #fff;
 	--shell-width-px: 1300px;
 	--shell-width: min(var(--shell-width-px), calc(100% - 2rem));
+	--announcement-bar-height: 0px;
 }
 
 :root[data-theme="dark"] {
@@ -72,7 +73,7 @@ button {
 .site-shell {
 	width: var(--shell-width);
 	margin: 0 auto;
-	padding: 1.25rem 0 4rem;
+	padding: 5rem 0 4rem;
 }
 
 .page-content {
@@ -102,10 +103,6 @@ button {
 	transition:
 		top 280ms cubic-bezier(0.4, 0, 0.2, 1),
 		background-color 180ms ease;
-}
-
-.site-shell {
-	padding-top: 5rem;
 }
 
 .brand {
@@ -141,7 +138,6 @@ button {
 	align-items: center;
 	overflow: hidden;
 
-	/* Override shared .panel styles */
 	border: none;
 	border-radius: 0;
 	box-shadow: none;
@@ -149,26 +145,24 @@ button {
 	backdrop-filter: none;
 }
 
-/* Centered content row that mirrors site-shell's max-width */
 .hero-inner {
 	position: relative;
 	z-index: 1;
 	width: min(var(--shell-width-px), calc(100% - 3rem));
 	margin: 0 auto;
 	padding: 5rem 0 6rem;
-	display: grid;
-	grid-template-columns: minmax(0, 1.5fr) 340px;
+	display: flex;
 	align-items: center;
-	gap: 2rem;
+	justify-content: center;
 }
-
-/* Decorative radial blob */
 
 .hero-copy {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	align-items: center;
+	text-align: center;
 	gap: 1.25rem;
+	max-width: 48rem;
 }
 
 .hero h1 {
@@ -199,6 +193,7 @@ button {
 .hero-actions {
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
 	gap: 0.9rem;
 	padding-top: 0.5rem;
 }
@@ -277,6 +272,10 @@ button {
 	text-transform: uppercase;
 	color: var(--muted);
 	z-index: 2;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	padding: 0;
 }
 
 .scroll-arrow {
@@ -309,16 +308,8 @@ button {
 	}
 }
 
-.scroll-hint {
-	/* add to existing rule */
-	border: none;
-	background: transparent;
-	cursor: pointer;
-	padding: 0;
-}
-
 .scroll-hint:hover .scroll-arrow::after {
-	animation-duration: 0.9s; /* speeds up the drop on hover */
+	animation-duration: 0.9s;
 }
 
 /* ─── Shared panel ─────────────────────────────────────────────── */
@@ -369,6 +360,10 @@ button {
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
+}
+
+.eyebrow {
+	margin-bottom: 0.25rem;
 }
 
 /* ─── Buttons ──────────────────────────────────────────────────── */
@@ -441,7 +436,6 @@ button {
 
 .feature-grid {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 1rem;
 }
 
@@ -521,6 +515,7 @@ button {
 .hamburger-icon::before {
 	top: -6px;
 }
+
 .hamburger-icon::after {
 	top: 6px;
 }
@@ -548,11 +543,6 @@ button {
 }
 
 @media (max-width: 800px) {
-	.hero-inner {
-		grid-template-columns: 1fr;
-		padding: 4rem 0;
-	}
-
 	.hero-card {
 		display: none;
 	}
@@ -603,17 +593,13 @@ button {
 
 /* ─── Announcement Bar ─────────────────────────────────────────── */
 
-:root {
-	--announcement-bar-height: 2.5rem;
-}
-
 .announcement-bar {
-	position: relative;
+	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	z-index: 1100;
-	height: var(--announcement-bar-height);
+	height: 2.5rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;

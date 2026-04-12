@@ -1,9 +1,6 @@
 import { scrollToSection } from "@/App";
 import Button from "@/components/ui/Button";
-
 import { EMAIL, NAME } from "@/constants/global";
-
-const stack = ["React", "TypeScript", "JavaScript", "Software Engineering"];
 
 export default function Hero() {
 	return (
@@ -27,24 +24,6 @@ export default function Hero() {
 						</Button>
 					</div>
 				</div>
-
-				<aside className="hero-card">
-					<p className="section-label">Current focus</p>
-					<ul className="stack-list">
-						{stack.map((item) => (
-							<li key={item}>{item}</li>
-						))}
-					</ul>
-					<hr className="hero-divider" />
-					<div className="open-badge">
-						<span className="pulse-dot" />
-						Open to work
-					</div>
-					<p className="open-tag">
-						Actively seeking internship and early-career roles in software
-						engineering.
-					</p>
-				</aside>
 			</div>
 
 			<button
