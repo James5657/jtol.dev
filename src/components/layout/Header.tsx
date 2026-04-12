@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { WEBSITE_NAME } from "@/constants/global";
+import { EMAIL, WEBSITE_NAME } from "@/constants/global";
 
 export default function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
@@ -42,7 +42,7 @@ export default function Header() {
 				>
 					Work
 				</button>
-				<a href="mailto:hello@jtol.dev" onClick={() => setMenuOpen(false)}>
+				<a href={`mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>
 					Contact
 				</a>
 				<div className="nav-theme">
