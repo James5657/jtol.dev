@@ -5,7 +5,7 @@ import Coursework from "@/components/sections/Coursework";
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
-import { WEBSITE_VERSION } from "@/constants/global";
+import { EMAIL, WEBSITE_VERSION } from "@/constants/global";
 
 export const scrollToSection = (id: string) => {
 	document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -34,7 +34,7 @@ export default function App() {
 								roles.
 							</h2>
 						</div>
-						<a className="button button-primary" href="mailto:hello@jtol.dev">
+						<a className="button button-primary" href={`mailto:${EMAIL}`}>
 							Reach out
 						</a>
 					</section>
