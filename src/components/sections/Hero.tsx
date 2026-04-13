@@ -1,4 +1,4 @@
-import { scrollToSection } from "@/App";
+import { scrollToSection } from "@/components/layout/NavigationBar";
 import Button from "@/components/ui/Button";
 import { EMAIL, NAME } from "@/constants/global";
 

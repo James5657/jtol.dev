@@ -7,10 +7,6 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import { EMAIL, WEBSITE_VERSION } from "@/constants/global";
 
-export const scrollToSection = (id: string) => {
-	document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-};
-
 export default function App() {
 	return (
 		<div className="root">

@@ -2,26 +2,35 @@ import { useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { EMAIL, WEBSITE_NAME } from "@/constants/global";
 
+export const scrollToSection = (id: string) => {
+	if (typeof document === "undefined") return;
+
+	const element = document.getElementById(id);
+	const navbar = document.querySelector(".site-navbar");
+
+	if (!element) return;
+
+	const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
+	const announcementBar = document.querySelector(
+		".announcement-bar:not(.hidden)",
+	);
+	const announcementHeight = announcementBar
+		? announcementBar.getBoundingClientRect().height
+		: 0;
+	const elementTop = element.getBoundingClientRect().top + window.scrollY;
+
+	const SCROLL_OFFSET_BUFFER = 16;
+	window.scrollTo({
+		top: elementTop - navbarHeight - announcementHeight - SCROLL_OFFSET_BUFFER,
+		behavior: "smooth",
+	});
+};
+
 export default function NavigationBar() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
-	const scrollToSection = (id: string) => {
-		if (typeof document === "undefined") return;
-
-		const element = document.getElementById(id);
-		const navbar = document.querySelector(".site-navbar");
-
-		if (!element) return;
-
-		const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
-		const elementTop = element.getBoundingClientRect().top + window.scrollY;
-
-		const SCROLL_OFFSET_BUFFER = 16; // px of extra space above the section
-		window.scrollTo({
-			top: elementTop - navbarHeight - SCROLL_OFFSET_BUFFER,
-			behavior: "smooth",
-		});
-
+	const scroll = (id: string) => {
+		scrollToSection(id);
 		setMenuOpen(false);
 	};
 
@@ -44,14 +53,14 @@ export default function NavigationBar() {
 			<nav className={`nav ${menuOpen ? "nav-open" : ""}`}>
 				<button
 					className="nav-link"
-					onClick={() => scrollToSection("about")}
+					onClick={() => scroll("about")}
 					type="button"
 				>
 					About
 				</button>
 				<button
 					className="nav-link"
-					onClick={() => scrollToSection("work")}
+					onClick={() => scroll("work")}
 					type="button"
 				>
 					Work
