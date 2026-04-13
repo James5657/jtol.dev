@@ -7,7 +7,21 @@ export default function NavigationBar() {
 
 	const scrollToSection = (id: string) => {
 		if (typeof document === "undefined") return;
-		document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
+		const element = document.getElementById(id);
+		const navbar = document.querySelector(".site-navbar");
+
+		if (!element) return;
+
+		const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
+		const elementTop = element.getBoundingClientRect().top + window.scrollY;
+
+		const SCROLL_OFFSET_BUFFER = 16; // px of extra space above the section
+		window.scrollTo({
+			top: elementTop - navbarHeight - SCROLL_OFFSET_BUFFER,
+			behavior: "smooth",
+		});
+
 		setMenuOpen(false);
 	};
 
