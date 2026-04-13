@@ -1,4 +1,4 @@
-export const WEBSITE_NAME = "jtol.dev";
+export const WEBSITE_NAME = "James Tolentino Harrison";
 
 export const WEBSITE_URL = "https://jtol.dev";
 
