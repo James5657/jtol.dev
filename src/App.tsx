@@ -1,5 +1,5 @@
 import Announcement from "@/components/layout/Announcement";
-import Header from "@/components/layout/Header";
+import NavigationBar from "@/components/layout/NavigationBar";
 import About from "@/components/sections/About";
 import Coursework from "@/components/sections/Coursework";
 import Hero from "@/components/sections/Hero";
@@ -17,7 +17,7 @@ export default function App() {
 			{WEBSITE_VERSION === "development" && (
 				<Announcement message="This website is currently in development." />
 			)}
-			<Header />
+			<NavigationBar />
 			<Hero />
 			<div className="site-shell">
 				<main className="page-content">

@@ -81,9 +81,9 @@ button {
 	gap: 1.25rem;
 }
 
-/* ─── Header ───────────────────────────────────────────────────── */
+/* ─── NavigationBar ───────────────────────────────────────────────────── */
 
-.site-header {
+.site-navbar {
 	position: fixed;
 	top: calc(1rem + var(--announcement-bar-height));
 	left: 50%;
@@ -550,7 +550,7 @@ button {
 }
 
 @media (max-width: 720px) {
-	.site-header {
+	.site-navbar {
 		flex-wrap: wrap;
 		padding: 0.9rem 1.25rem;
 	}

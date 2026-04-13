@@ -2,7 +2,7 @@ import { useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { EMAIL, WEBSITE_NAME } from "@/constants/global";
 
-export default function Header() {
+export default function NavigationBar() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const scrollToSection = (id: string) => {
@@ -12,7 +12,7 @@ export default function Header() {
 	};
 
 	return (
-		<header className="site-header">
+		<header className="site-navbar">
 			<a className="brand" href="/">
 				{WEBSITE_NAME}
 			</a>
