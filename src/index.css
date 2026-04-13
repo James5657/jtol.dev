@@ -25,8 +25,8 @@
 	--text: #f4efe8;
 	--muted: #b4aca3;
 	--line: rgba(255, 255, 255, 0.1);
-	--accent: #ff4f6d;
-	--accent-strong: #ff7f94;
+	--accent: #ff2242;
+	--accent-strong: #ff4f6d;
 	--button-text: #160b0d;
 }
 
@@ -169,12 +169,13 @@ button {
 	margin: 0;
 	font-size: clamp(4rem, 10vw, 8rem);
 	line-height: 0.92;
-	letter-spacing: -0.04em;
+	letter-spacing: -0.025em;
+	font-kerning: normal;
 }
 
 .hero-subtitle {
 	max-width: 38rem;
-	margin: 0;
+	margin: 15px;
 	color: var(--muted);
 	font-size: clamp(1rem, 2vw, 1.3rem);
 	font-weight: 500;
@@ -196,6 +197,7 @@ button {
 	justify-content: center;
 	gap: 0.9rem;
 	padding-top: 0.5rem;
+	margin-top: 30px;
 }
 
 /* Hero card (sidebar) */
@@ -342,7 +344,6 @@ button {
 .section-heading h2,
 .cta-panel h2 {
 	margin: 0;
-	letter-spacing: -0.05em;
 }
 
 .section-body {
@@ -355,7 +356,7 @@ button {
 .eyebrow,
 .section-label {
 	margin: 0 0 1rem;
-	color: var(--accent);
+	color: var(--accent-strong);
 	font-size: 0.85rem;
 	font-weight: 700;
 	letter-spacing: 0.14em;
@@ -652,4 +653,10 @@ button {
 .announcement-bar-close:hover {
 	opacity: 1;
 	background: rgba(255, 255, 255, 0.2);
+}
+
+/* Coursework */
+
+.coursework-list li {
+	margin: 0 5px 5px;
 }
