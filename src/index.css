@@ -418,22 +418,6 @@ button {
 	line-height: 1;
 }
 
-/* ─── Stack list ───────────────────────────────────────────────── */
-
-.stack-list {
-	margin: 0;
-	padding-left: 1.2rem;
-}
-
-.stack-list li {
-	color: var(--muted);
-	line-height: 1.7;
-}
-
-.stack-list li + li {
-	margin-top: 0.65rem;
-}
-
 /* ─── Feature grid ─────────────────────────────────────────────── */
 
 .feature-grid {
@@ -657,7 +641,11 @@ button {
 }
 
 /* Coursework */
-
 .coursework-list li {
+	margin: 0 5px 5px;
+}
+
+/* Skills */
+.skills-list li {
 	margin: 0 5px 5px;
 }
