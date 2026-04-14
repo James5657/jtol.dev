@@ -19,7 +19,10 @@ export default function Hero() {
 						<a className="button button-primary" href={`mailto:${EMAIL}`}>
 							Contact me
 						</a>
-						<Button onClick={() => scrollToSection("work")} variant="secondary">
+						<Button
+							onClick={() => scrollToSection("projects")}
+							variant="secondary"
+						>
 							View projects
 						</Button>
 					</div>

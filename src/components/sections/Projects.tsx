@@ -10,7 +10,7 @@ function getGridStyle(count: number): React.CSSProperties {
 
 export default function Projects() {
 	return (
-		<section className="panel" id="work">
+		<section className="panel" id="projects">
 			<div className="section-heading">
 				<p className="section-label">Projects</p>
 			</div>
