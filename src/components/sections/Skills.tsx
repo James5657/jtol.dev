@@ -1,30 +1,52 @@
+import { useState } from "react";
+import { type Category, categories, skills } from "@/data/skills";
+
 export default function Skills() {
+	const [active, setActive] = useState<Category>("All");
+
+	const filtered =
+		active === "All" ? skills : skills.filter((s) => s.category === active);
+
 	return (
-		<section className="panel section-grid" id="skills">
-			<div>
-				<p className="section-label">Skills</p>
-				<h2>Technical Skills and Tools</h2>
-			</div>
-			<ul className="skills-list">
-				<li>
-					<strong>Programming Languages:</strong> Python, JavaScript,
-					TypeScript, Java, C/C++
-				</li>
-				<li>
-					<strong>Frameworks & Libraries:</strong> React, Node.js
-				</li>
-				<li>
-					<strong>Databases:</strong> MySQL, PostgreSQL
-				</li>
-				<li>
-					<strong>Tools & Platforms:</strong> Git, Visual Studio Code, Visual
-					Studio, IntelliJ IDEA, PyCharm, WebStorm
-				</li>
-				<li>
-					<strong>Other Skills:</strong> RESTful APIs, Agile Development,
-					Test-Driven Development (TDD)
-				</li>
-			</ul>
-		</section>
+		<>
+			{/* Devicons CDN */}
+			<link
+				rel="stylesheet"
+				href={
+					"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+				}
+			/>
+
+			<section className="panel" id="skills">
+				{/* Header */}
+				<div className="section-heading">
+					<p className="section-label">Skills</p>
+				</div>
+
+				{/* Filter pills */}
+				<div className="skills-filter-bar">
+					{categories.map((cat) => (
+						<button
+							key={cat}
+							onClick={() => setActive(cat)}
+							className={`skills-filter-pill${active === cat ? " active" : ""}`}
+							type={"button"}
+						>
+							{cat}
+						</button>
+					))}
+				</div>
+
+				{/* Icon grid */}
+				<div className="skills-grid">
+					{filtered.map((skill) => (
+						<div key={skill.name} role={"img"} className="skills-card">
+							<i className={skill.icon} />
+							<span>{skill.name}</span>
+						</div>
+					))}
+				</div>
+			</section>
+		</>
 	);
 }
