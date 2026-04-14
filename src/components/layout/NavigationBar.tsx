@@ -30,8 +30,8 @@ export default function NavigationBar() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const scroll = (id: string) => {
-		scrollToSection(id);
 		setMenuOpen(false);
+		setTimeout(() => scrollToSection(id), 0);
 	};
 
 	return (
@@ -60,10 +60,10 @@ export default function NavigationBar() {
 				</button>
 				<button
 					className="nav-link"
-					onClick={() => scroll("work")}
+					onClick={() => scroll("projects")}
 					type="button"
 				>
-					Work
+					Projects
 				</button>
 				<a href={`mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>
 					Contact
