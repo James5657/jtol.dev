@@ -1,6 +1,6 @@
 import { scrollToSection } from "@/components/layout/NavigationBar";
 import Button from "@/components/ui/Button";
-import { EMAIL, NAME } from "@/constants/global";
+import { EMAIL, NAME } from "@/data/global";
 
 export default function Hero() {
 	return (
@@ -12,7 +12,7 @@ export default function Hero() {
 					<p className="eyebrow">Computer Science Student — UT Dallas</p>
 					<h1>{NAME}</h1>
 					<p className="hero-subtitle">
-						Senior pursuing software engineering opportunities. Building
+						CS Senior pursuing software engineering opportunities. Building
 						reliable applications and growing through real-world experience.
 					</p>
 					<div className="hero-actions">

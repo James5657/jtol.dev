@@ -5,7 +5,7 @@ import Coursework from "@/components/sections/Coursework";
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
-import { EMAIL, WEBSITE_VERSION } from "@/constants/global";
+import { EMAIL, WEBSITE_VERSION } from "@/data/global";
 
 export default function App() {
 	return (

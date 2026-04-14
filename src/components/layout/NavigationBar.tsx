@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { EMAIL, WEBSITE_NAME } from "@/constants/global";
+import { EMAIL, WEBSITE_NAME } from "@/data/global";
 
 export const scrollToSection = (id: string) => {
 	if (typeof document === "undefined") return;
