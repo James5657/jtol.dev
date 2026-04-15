@@ -299,6 +299,12 @@ button {
 	height: 100%;
 	background: var(--accent);
 	animation: drop 1.8s ease-in-out infinite;
+
+	/* Glow effect */
+	box-shadow:
+		0 0 6px var(--accent),
+		0 0 12px var(--accent),
+		0 0 18px var(--accent);
 }
 
 @keyframes drop {
