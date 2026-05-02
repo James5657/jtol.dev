@@ -12,11 +12,6 @@ export default function Coursework() {
 					<p className="section-label">Relevant Coursework</p>
 					<h2>Computer science courses most relevant to my work.</h2>
 				</div>
-				<p className="section-body coursework-summary">
-					These courses reflect the parts of computer science I have spent the
-					most time on: software engineering, systems, databases, and core CS
-					fundamentals.
-				</p>
 			</div>
 
 			<div className="coursework-grid">
