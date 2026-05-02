@@ -588,6 +588,11 @@ button {
 	.feature-grid {
 		grid-template-columns: 1fr;
 	}
+
+	.coursework-header,
+	.coursework-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 @media (max-width: 800px) {
@@ -704,8 +709,85 @@ button {
 }
 
 /* Coursework */
-.coursework-list li {
-	margin: 0 5px 5px;
+.coursework-panel {
+	display: grid;
+	gap: 1.5rem;
+}
+
+.coursework-header {
+	display: grid;
+	grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+	gap: 1.5rem;
+	align-items: end;
+}
+
+.coursework-summary {
+	max-width: 34rem;
+}
+
+.coursework-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.coursework-card {
+	padding: 1.1rem 1.15rem;
+	border: 1px solid var(--line);
+	border-radius: 18px;
+	background: var(--surface-strong);
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.coursework-card-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 0.9rem;
+}
+
+.coursework-code {
+	font-size: 0.8rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--accent-strong);
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.coursework-area {
+	padding: 0.28rem 0.65rem;
+	border-radius: 999px;
+	background: var(--background-accent);
+	color: var(--accent);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.coursework-card h3 {
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.45;
+}
+
+.coursework-link {
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.coursework-link:hover {
+	color: var(--accent);
 }
 
 /* Skills */

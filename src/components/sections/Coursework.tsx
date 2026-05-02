@@ -1,31 +1,44 @@
+import { coursework } from "@/data/coursework";
+
+function getCatalogHref(code: string, year: number) {
+	return `https://catalog.utdallas.edu/${String(year)}/undergraduate/courses/${code.toLowerCase().replace(/\s+/g, "")}`;
+}
+
 export default function Coursework() {
 	return (
-		<section className="panel section-grid" id="skills">
-			<div>
-				<p className="section-label">Relevant Coursework</p>
-				<h2>UT Dallas CS Coursework</h2>
+		<section className="panel coursework-panel" id="coursework">
+			<div className="coursework-header">
+				<div className="section-heading">
+					<p className="section-label">Relevant Coursework</p>
+					<h2>Computer science courses most relevant to my work.</h2>
+				</div>
+				<p className="section-body coursework-summary">
+					These courses reflect the parts of computer science I have spent the
+					most time on: software engineering, systems, databases, and core CS
+					fundamentals.
+				</p>
 			</div>
-			<ul className="coursework-list">
-				<li>
-					<strong>CS 3345</strong> Data Structures and Algorithms
-				</li>
-				<li>
-					<strong>CS 3354</strong> Software Engineering
-				</li>
-				<li>
-					<strong>CS 3377</strong> Systems Programming in UNIX and Other
-					Environments
-				</li>
-				<li>
-					<strong>CS 4347</strong> Database Systems
-				</li>
-				<li>
-					<strong>CS 4376</strong> Object-Oriented Design
-				</li>
-				<li>
-					<strong>SE 4381</strong> Software Project Planning and Management
-				</li>
-			</ul>
+
+			<div className="coursework-grid">
+				{coursework.map((course) => (
+					<article className="coursework-card" key={course.code}>
+						<div className="coursework-card-top">
+							<span className="coursework-code">{course.code}</span>
+							<span className="coursework-area">{course.area}</span>
+						</div>
+						<h3>
+							<a
+								className="coursework-link"
+								href={getCatalogHref(course.code, course.year)}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								{course.title}
+							</a>
+						</h3>
+					</article>
+				))}
+			</div>
 		</section>
 	);
 }
