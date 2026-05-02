@@ -14,6 +14,8 @@
 	--shell-width-px: 1300px;
 	--shell-width: min(var(--shell-width-px), calc(100% - 2rem));
 	--announcement-bar-height: 0px;
+	--theme-transition-duration: 180ms;
+	--theme-transition-easing: ease;
 }
 
 :root[data-theme="dark"] {
@@ -51,8 +53,9 @@ body {
 		var(--background);
 	color: var(--text);
 	transition:
-		background-color 180ms ease,
-		color 180ms ease;
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 a {
@@ -102,7 +105,11 @@ button {
 	-webkit-backdrop-filter: blur(16px);
 	transition:
 		top 280ms cubic-bezier(0.4, 0, 0.2, 1),
-		background-color 180ms ease;
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .brand {
@@ -111,6 +118,8 @@ button {
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--accent);
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .nav {
@@ -118,6 +127,8 @@ button {
 	align-items: center;
 	gap: 1rem;
 	color: var(--muted);
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .nav-link {
@@ -126,6 +137,8 @@ button {
 	background: transparent;
 	color: inherit;
 	cursor: pointer;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* ─── Hero (full-screen) ───────────────────────────────────────── */
@@ -181,6 +194,8 @@ button {
 	font-weight: 500;
 	letter-spacing: -0.01em;
 	line-height: 1.5;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .lede {
@@ -189,6 +204,8 @@ button {
 	color: var(--muted);
 	font-size: 1.05rem;
 	line-height: 1.7;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .hero-actions {
@@ -211,12 +228,19 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .hero-divider {
 	border: none;
 	border-top: 1px solid var(--line);
 	margin: 0;
+	transition: border-color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* Open-to-work badge */
@@ -231,6 +255,10 @@ button {
 	border-radius: 999px;
 	padding: 0.35rem 0.85rem;
 	width: fit-content;
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .pulse-dot {
@@ -257,6 +285,8 @@ button {
 	color: var(--muted);
 	line-height: 1.6;
 	margin: 0.75rem 0 0;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* Scroll hint */
@@ -279,6 +309,8 @@ button {
 	background: transparent;
 	cursor: pointer;
 	padding: 0;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .scroll-arrow {
@@ -288,6 +320,8 @@ button {
 	position: relative;
 	overflow: hidden;
 	border-radius: 2px;
+	transition: background-color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .scroll-arrow::after {
@@ -331,6 +365,11 @@ button {
 	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 	backdrop-filter: blur(16px);
 	-webkit-backdrop-filter: blur(16px);
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 /* ─── Section layouts ──────────────────────────────────────────── */
@@ -356,6 +395,8 @@ button {
 .section-body {
 	color: var(--muted);
 	line-height: 1.7;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* ─── Typography helpers ───────────────────────────────────────── */
@@ -368,6 +409,8 @@ button {
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .eyebrow {
@@ -388,9 +431,11 @@ button {
 	font-weight: 600;
 	transition:
 		transform 180ms ease,
-		background-color 180ms ease,
-		border-color 180ms ease,
-		color 180ms ease;
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .button:hover {
@@ -422,6 +467,8 @@ button {
 .theme-toggle-icon {
 	font-size: 1rem;
 	line-height: 1;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* ─── Feature grid ─────────────────────────────────────────────── */
@@ -437,6 +484,11 @@ button {
 	border-radius: 20px;
 	border: 1px solid var(--line);
 	background: var(--surface-strong);
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .feature-card h3 {
@@ -448,6 +500,8 @@ button {
 .feature-card p {
 	color: var(--muted);
 	line-height: 1.7;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 /* ─── GitHub icon ──────────────────────────────────────────────── */
@@ -459,7 +513,9 @@ button {
 	font-size: 1.25rem;
 	color: inherit;
 	opacity: 0.7;
-	transition: opacity 0.2s ease;
+	transition:
+		opacity 0.2s ease,
+		color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .github-icon:hover {
@@ -638,7 +694,8 @@ button {
 	opacity: 0.7;
 	transition:
 		opacity 150ms ease,
-		background-color 150ms ease;
+		background-color 150ms ease,
+		color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .announcement-bar-close:hover {
@@ -672,7 +729,11 @@ button {
 	font-weight: 600;
 	font-size: 0.85rem;
 	cursor: pointer;
-	transition: all 180ms ease;
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing);
 }
 
 .skills-filter-pill:hover:not(.active) {
@@ -704,8 +765,10 @@ button {
 	background: var(--surface-strong);
 	transition:
 		transform 180ms ease,
-		border-color 180ms ease,
-		box-shadow 180ms ease;
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 	cursor: default;
 }
 
@@ -726,4 +789,6 @@ button {
 	color: var(--muted);
 	text-align: center;
 	line-height: 1.3;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
