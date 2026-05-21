@@ -520,6 +520,120 @@ button {
 		var(--theme-transition-easing);
 }
 
+.contact-panel {
+	display: grid;
+	grid-template-columns: minmax(0, 0.95fr) minmax(22rem, 1.05fr);
+	gap: 1.5rem;
+	align-items: stretch;
+}
+
+.contact-intro {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-width: 0;
+}
+
+.contact-intro h2 {
+	margin: 0;
+	max-width: 36rem;
+}
+
+.contact-intro p:not(.section-label) {
+	max-width: 34rem;
+	margin: 1rem 0 0;
+	color: var(--muted);
+	line-height: 1.7;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.contact-links {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.85rem;
+}
+
+.contact-link {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 0.85rem;
+	align-items: center;
+	min-height: 5.25rem;
+	padding: 1rem;
+	border: 1px solid var(--line);
+	border-radius: 18px;
+	background: var(--surface-strong);
+	transition:
+		transform 180ms ease,
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		border-color var(--theme-transition-duration) var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing),
+		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+	transform: translateY(-2px);
+	border-color: var(--accent);
+	color: var(--accent);
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+	outline: none;
+}
+
+.contact-link-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.65rem;
+	height: 2.65rem;
+	border-radius: 50%;
+	background: var(--background-accent);
+	color: var(--accent);
+	font-size: 1.35rem;
+	flex: 0 0 auto;
+	transition:
+		background-color var(--theme-transition-duration)
+		var(--theme-transition-easing),
+		color var(--theme-transition-duration) var(--theme-transition-easing);
+}
+
+.contact-link-copy {
+	display: grid;
+	gap: 0.18rem;
+	min-width: 0;
+}
+
+.contact-link-copy span {
+	color: var(--muted);
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.contact-link:hover .contact-link-copy span,
+.contact-link:focus-visible .contact-link-copy span {
+	color: var(--accent-strong);
+}
+
+.contact-link-copy strong {
+	overflow-wrap: anywhere;
+	color: var(--text);
+	font-size: 0.98rem;
+	line-height: 1.35;
+	transition: color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.contact-link:hover .contact-link-copy strong,
+.contact-link:focus-visible .contact-link-copy strong {
+	color: var(--accent);
+}
+
 /* ─── Typography helpers ───────────────────────────────────────── */
 
 .eyebrow,
@@ -722,6 +836,7 @@ button {
 @media (max-width: 860px) {
 	.section-grid,
 	.cta-panel,
+	.contact-panel,
 	.feature-grid {
 		grid-template-columns: 1fr;
 	}
@@ -834,6 +949,10 @@ button {
 
 	.hero h1 {
 		font-size: clamp(3rem, 13vw, 4.5rem);
+	}
+
+	.contact-links {
+		grid-template-columns: 1fr;
 	}
 }
 
