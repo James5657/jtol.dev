@@ -52,6 +52,11 @@ export const skills: Skill[] = [
 		category: "Frontend",
 		icon: "devicon-css3-plain colored",
 	},
+	{
+		name: "Tailwind CSS",
+		category: "Frontend",
+		icon: "devicon-tailwindcss-original colored",
+	},
 	// Backend
 	{
 		name: "Node.js",
