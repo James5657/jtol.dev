@@ -114,7 +114,7 @@ button {
 	z-index: 1000;
 
 	display: grid;
-	grid-template-columns: auto 1fr;
+	grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
 	align-items: center;
 	gap: 0.75rem;
 
@@ -151,13 +151,18 @@ button {
 }
 
 .nav {
-	justify-self: end;
-	display: flex;
-	align-items: center;
-	gap: 0.25rem;
+	display: contents;
 	color: var(--muted);
 	transition: color var(--theme-transition-duration)
 		var(--theme-transition-easing);
+}
+
+.nav-links {
+	grid-column: 2;
+	justify-self: center;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
 }
 
 .nav-link {
@@ -188,7 +193,8 @@ button {
 }
 
 .nav-theme {
-	margin-left: 0.15rem;
+	grid-column: 3;
+	justify-self: end;
 }
 
 /* ─── Hero (full-screen) ───────────────────────────────────────── */
@@ -760,6 +766,7 @@ button {
 	.nav {
 		grid-column: 1 / -1;
 		justify-self: stretch;
+		display: flex;
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0.35rem;
@@ -791,8 +798,17 @@ button {
 		visibility: visible;
 	}
 
+	.nav-links {
+		grid-column: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.35rem;
+		width: 100%;
+	}
+
 	.nav-link,
-	.nav > a {
+	.nav-links > a {
 		width: 100%;
 		justify-content: flex-start;
 		min-height: 2.8rem;
@@ -804,6 +820,8 @@ button {
 	}
 
 	.nav-theme {
+		grid-column: auto;
+		justify-self: stretch;
 		margin-left: 0;
 		padding-top: 0.35rem;
 	}

@@ -69,27 +69,43 @@ export default function NavigationBar() {
 			</button>
 
 			<nav className={`nav ${menuOpen ? "nav-open" : ""}`} id={menuId}>
-				<button
-					className="nav-link"
-					onClick={() => scroll("about")}
-					type="button"
-				>
-					About
-				</button>
-				<button
-					className="nav-link"
-					onClick={() => scroll("projects")}
-					type="button"
-				>
-					Projects
-				</button>
-				<a
-					className="nav-link"
-					href={`mailto:${EMAIL}`}
-					onClick={() => setMenuOpen(false)}
-				>
-					Contact
-				</a>
+				<div className="nav-links">
+					<button
+						className="nav-link"
+						onClick={() => scroll("about")}
+						type="button"
+					>
+						About
+					</button>
+					<button
+						className="nav-link"
+						onClick={() => scroll("projects")}
+						type="button"
+					>
+						Projects
+					</button>
+					<button
+						className="nav-link"
+						onClick={() => scroll("coursework")}
+						type="button"
+					>
+						Coursework
+					</button>
+					<button
+						className="nav-link"
+						onClick={() => scroll("skills")}
+						type="button"
+					>
+						Skills
+					</button>
+					<a
+						className="nav-link"
+						href={`mailto:${EMAIL}`}
+						onClick={() => setMenuOpen(false)}
+					>
+						Contact
+					</a>
+				</div>
 				<div className="nav-theme">
 					<ThemeToggle />
 				</div>
