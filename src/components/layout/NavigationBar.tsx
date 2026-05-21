@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { EMAIL, WEBSITE_NAME } from "@/data/global";
 
@@ -28,6 +28,23 @@ export const scrollToSection = (id: string) => {
 
 export default function NavigationBar() {
 	const [menuOpen, setMenuOpen] = useState(false);
+	const menuId = "site-navigation";
+
+	useEffect(() => {
+		if (!menuOpen) {
+			return;
+		}
+
+		const handleKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") {
+				setMenuOpen(false);
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyDown);
+
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, [menuOpen]);
 
 	const scroll = (id: string) => {
 		setMenuOpen(false);
@@ -35,8 +52,8 @@ export default function NavigationBar() {
 	};
 
 	return (
-		<header className="site-navbar">
-			<a className="brand" href="/">
+		<header className={`site-navbar ${menuOpen ? "nav-expanded" : ""}`}>
+			<a className="brand" href="/" onClick={() => setMenuOpen(false)}>
 				{WEBSITE_NAME}
 			</a>
 
@@ -44,13 +61,14 @@ export default function NavigationBar() {
 				className="hamburger"
 				onClick={() => setMenuOpen((o) => !o)}
 				aria-label={menuOpen ? "Close menu" : "Open menu"}
+				aria-controls={menuId}
 				aria-expanded={menuOpen}
 				type="button"
 			>
 				<span className={`hamburger-icon ${menuOpen ? "open" : ""}`} />
 			</button>
 
-			<nav className={`nav ${menuOpen ? "nav-open" : ""}`}>
+			<nav className={`nav ${menuOpen ? "nav-open" : ""}`} id={menuId}>
 				<button
 					className="nav-link"
 					onClick={() => scroll("about")}
@@ -65,7 +83,11 @@ export default function NavigationBar() {
 				>
 					Projects
 				</button>
-				<a href={`mailto:${EMAIL}`} onClick={() => setMenuOpen(false)}>
+				<a
+					className="nav-link"
+					href={`mailto:${EMAIL}`}
+					onClick={() => setMenuOpen(false)}
+				>
 					Contact
 				</a>
 				<div className="nav-theme">
