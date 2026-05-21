@@ -16,6 +16,11 @@
 	--announcement-bar-height: 0px;
 	--theme-transition-duration: 180ms;
 	--theme-transition-easing: ease;
+	--hero-wash: rgba(255, 255, 255, 0.68);
+	--hero-grid-line: rgba(236, 15, 51, 0.1);
+	--hero-grid-opacity: 0.34;
+	--hero-side-fade: rgba(244, 240, 232, 0.96);
+	--hero-title-shadow: rgba(78, 28, 24, 0.12);
 }
 
 :root[data-theme="dark"] {
@@ -30,6 +35,11 @@
 	--accent: #ff2242;
 	--accent-strong: #ff4f6d;
 	--button-text: #160b0d;
+	--hero-wash: rgba(255, 255, 255, 0.04);
+	--hero-grid-line: rgba(255, 34, 66, 0.12);
+	--hero-grid-opacity: 0.22;
+	--hero-side-fade: rgba(18, 19, 21, 0.98);
+	--hero-title-shadow: rgba(0, 0, 0, 0.42);
 }
 
 * {
@@ -71,12 +81,22 @@ button {
 	min-height: 100vh;
 }
 
+.root {
+	min-height: 100vh;
+	background: var(--background);
+	transition: background-color var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
 /* ─── Layout Shell ─────────────────────────────────────────────── */
 
 .site-shell {
 	width: var(--shell-width);
 	margin: 0 auto;
 	padding: calc(5rem + var(--announcement-bar-height)) 0 4rem;
+	background: var(--background);
+	transition: background-color var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .page-content {
@@ -154,13 +174,75 @@ button {
 	border: none;
 	border-radius: 0;
 	box-shadow: none;
-	background: transparent;
+	background:
+		linear-gradient(120deg, var(--hero-wash), transparent 42%),
+		linear-gradient(180deg, transparent 0%, var(--background) 100%);
 	backdrop-filter: none;
+	isolation: isolate;
+	margin-bottom: -1px;
+	transition: background var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.hero-background,
+.hero-background-canvas,
+.hero-background-grid,
+.hero-background-vignette {
+	position: absolute;
+	inset: 0;
+}
+
+.hero-background {
+	z-index: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.hero-background-canvas {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.hero-background-grid {
+	opacity: var(--hero-grid-opacity);
+	background-image:
+		linear-gradient(var(--hero-grid-line) 1px, transparent 1px),
+		linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px);
+	background-size: 72px 72px;
+	mask-image: linear-gradient(
+		to bottom,
+		transparent,
+		#000 18%,
+		#000 70%,
+		transparent
+	);
+	transition: opacity var(--theme-transition-duration)
+		var(--theme-transition-easing);
+}
+
+.hero-background-vignette {
+	background:
+		linear-gradient(
+			90deg,
+			var(--hero-side-fade) 0%,
+			transparent 18%,
+			transparent 82%,
+			var(--hero-side-fade) 100%
+		),
+		linear-gradient(
+			180deg,
+			transparent 0%,
+			transparent 52%,
+			var(--background) 94%
+		);
+	transition: background var(--theme-transition-duration)
+		var(--theme-transition-easing);
 }
 
 .hero-inner {
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 	width: min(var(--shell-width-px), calc(100% - 3rem));
 	margin: 0 auto;
 	padding: calc(5rem + var(--announcement-bar-height)) 0 6rem;
@@ -176,6 +258,8 @@ button {
 	text-align: center;
 	gap: 1.25rem;
 	max-width: 48rem;
+	padding: 1.25rem;
+	border-radius: 28px;
 }
 
 .hero h1 {
@@ -184,6 +268,7 @@ button {
 	line-height: 0.92;
 	letter-spacing: -0.025em;
 	font-kerning: normal;
+	text-shadow: 0 18px 60px var(--hero-title-shadow);
 }
 
 .hero-subtitle {
@@ -304,7 +389,7 @@ button {
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
 	color: var(--muted);
-	z-index: 2;
+	z-index: 3;
 	border: none;
 	background: transparent;
 	cursor: pointer;

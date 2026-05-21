@@ -1,11 +1,12 @@
 import { scrollToSection } from "@/components/layout/NavigationBar";
 import Button from "@/components/ui/Button";
 import { EMAIL, NAME } from "@/data/global";
+import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
 	return (
 		<section className="hero">
-			<div className="accent-blob" />
+			<HeroBackground />
 
 			<div className="hero-inner">
 				<div className="hero-copy">
