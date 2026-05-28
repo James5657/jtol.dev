@@ -457,8 +457,7 @@ button {
 		var(--theme-transition-easing);
 }
 
-.scroll-arrow::after {
-	content: "";
+.scroll-arrow-fill {
 	position: absolute;
 	top: -100%;
 	left: 0;
@@ -482,10 +481,6 @@ button {
 	100% {
 		top: 200%;
 	}
-}
-
-.scroll-hint:hover .scroll-arrow::after {
-	animation-duration: 0.9s;
 }
 
 /* ─── Shared panel ─────────────────────────────────────────────── */

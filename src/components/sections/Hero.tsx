@@ -1,9 +1,20 @@
+import { useRef } from "react";
 import { scrollToSection } from "@/components/layout/NavigationBar";
 import Button from "@/components/ui/Button";
 import { EMAIL, NAME } from "@/data/global";
 import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
+	const scrollArrowRef = useRef<HTMLSpanElement | null>(null);
+
+	const setScrollHintSpeed = (playbackRate: number) => {
+		const animations = scrollArrowRef.current?.getAnimations() ?? [];
+
+		for (const animation of animations) {
+			animation.updatePlaybackRate(playbackRate);
+		}
+	};
+
 	return (
 		<section className="hero">
 			<HeroBackground />
@@ -33,11 +44,17 @@ export default function Hero() {
 			<button
 				className="scroll-hint"
 				onClick={() => scrollToSection("about")}
+				onBlur={() => setScrollHintSpeed(1)}
+				onFocus={() => setScrollHintSpeed(2)}
+				onPointerEnter={() => setScrollHintSpeed(2)}
+				onPointerLeave={() => setScrollHintSpeed(1)}
 				aria-label="Scroll to next section"
 				type="button"
 			>
 				<span>Scroll</span>
-				<div className="scroll-arrow" />
+				<span className="scroll-arrow" aria-hidden="true">
+					<span ref={scrollArrowRef} className="scroll-arrow-fill" />
+				</span>
 			</button>
 		</section>
 	);
