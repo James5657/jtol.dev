@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
-import { EMAIL, WEBSITE_NAME } from "@/data/global";
+import { WEBSITE_NAME } from "@/data/global";
 
 export const scrollToSection = (id: string) => {
 	if (typeof document === "undefined") return;
@@ -98,13 +98,13 @@ export default function NavigationBar() {
 					>
 						Skills
 					</button>
-					<a
+					<button
 						className="nav-link"
-						href={`mailto:${EMAIL}`}
-						onClick={() => setMenuOpen(false)}
+						onClick={() => scroll("contact")}
+						type={"button"}
 					>
 						Contact
-					</a>
+					</button>
 				</div>
 				<div className="nav-theme">
 					<ThemeToggle />
