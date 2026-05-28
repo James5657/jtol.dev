@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { scrollToSection } from "@/components/layout/NavigationBar";
 import Button from "@/components/ui/Button";
-import { EMAIL, NAME } from "@/data/global";
+import { NAME } from "@/data/global";
 import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
@@ -28,9 +28,9 @@ export default function Hero() {
 						reliable applications and growing through real-world experience.
 					</p>
 					<div className="hero-actions">
-						<a className="button button-primary" href={`mailto:${EMAIL}`}>
+						<Button onClick={() => scrollToSection("contact")}>
 							Contact me
-						</a>
+						</Button>
 						<Button
 							onClick={() => scrollToSection("projects")}
 							variant="secondary"

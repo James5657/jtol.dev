@@ -2,26 +2,66 @@ import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { WEBSITE_NAME } from "@/data/global";
 
+const SCROLL_OFFSET_BUFFER = 16;
+
+function parsePixelValue(value: string) {
+	const parsed = Number.parseFloat(value);
+	return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function getCollapsedNavbarHeight(navbar: HTMLElement) {
+	const navbarRect = navbar.getBoundingClientRect();
+	const navbarStyles = window.getComputedStyle(navbar);
+	const menu = navbar.querySelector<HTMLElement>(".nav");
+	let expandedMenuHeight = 0;
+
+	if (menu) {
+		const menuStyles = window.getComputedStyle(menu);
+
+		if (menuStyles.display !== "contents") {
+			const menuHeight =
+				menu.getBoundingClientRect().height +
+				parsePixelValue(menuStyles.marginTop) +
+				parsePixelValue(menuStyles.marginBottom);
+
+			expandedMenuHeight =
+				menuHeight > 0 ? menuHeight + parsePixelValue(navbarStyles.rowGap) : 0;
+		}
+	}
+
+	return Math.max(
+		parsePixelValue(navbarStyles.minHeight),
+		navbarRect.height - expandedMenuHeight,
+	);
+}
+
 export const scrollToSection = (id: string) => {
 	if (typeof document === "undefined") return;
 
 	const element = document.getElementById(id);
-	const navbar = document.querySelector(".site-navbar");
+	const navbar = document.querySelector<HTMLElement>(".site-navbar");
 
 	if (!element) return;
 
-	const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
 	const announcementBar = document.querySelector(
 		".announcement-bar:not(.hidden)",
 	);
 	const announcementHeight = announcementBar
 		? announcementBar.getBoundingClientRect().height
 		: 0;
+	const navbarTop = navbar
+		? Math.max(0, navbar.getBoundingClientRect().top - announcementHeight)
+		: 0;
+	const navbarHeight = navbar ? getCollapsedNavbarHeight(navbar) : 0;
 	const elementTop = element.getBoundingClientRect().top + window.scrollY;
 
-	const SCROLL_OFFSET_BUFFER = 16;
 	window.scrollTo({
-		top: elementTop - navbarHeight - announcementHeight - SCROLL_OFFSET_BUFFER,
+		top:
+			elementTop -
+			announcementHeight -
+			navbarTop -
+			navbarHeight -
+			SCROLL_OFFSET_BUFFER,
 		behavior: "smooth",
 	});
 };
@@ -101,7 +141,7 @@ export default function NavigationBar() {
 					<button
 						className="nav-link"
 						onClick={() => scroll("contact")}
-						type={"button"}
+						type="button"
 					>
 						Contact
 					</button>

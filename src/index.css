@@ -1166,6 +1166,8 @@ button {
 		border-color var(--theme-transition-duration) var(--theme-transition-easing),
 		box-shadow var(--theme-transition-duration) var(--theme-transition-easing);
 	cursor: default;
+	transform-origin: center;
+	will-change: transform, opacity;
 }
 
 .skills-card:hover {
