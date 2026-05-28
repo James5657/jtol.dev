@@ -22,6 +22,9 @@
 	--hero-node-line: #4f443e;
 	--hero-node-line-opacity: 0.3;
 	--hero-node-line-width: 1.15;
+	--hero-node-line-highlight-opacity: 0.28;
+	--hero-node-line-highlight-radius: 280;
+	--hero-node-line-highlight-width: 0.65;
 	--hero-side-fade: rgba(244, 240, 232, 0.96);
 	--hero-title-shadow: rgba(78, 28, 24, 0.12);
 }
@@ -44,6 +47,9 @@
 	--hero-node-line: #f4efe8;
 	--hero-node-line-opacity: 0.26;
 	--hero-node-line-width: 1.1;
+	--hero-node-line-highlight-opacity: 0.34;
+	--hero-node-line-highlight-radius: 300;
+	--hero-node-line-highlight-width: 0.75;
 	--hero-side-fade: rgba(18, 19, 21, 0.98);
 	--hero-title-shadow: rgba(0, 0, 0, 0.42);
 }

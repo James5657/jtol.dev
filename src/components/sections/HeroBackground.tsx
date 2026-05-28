@@ -85,6 +85,9 @@ export default function HeroBackground() {
 		let lineRgb = "79, 68, 62";
 		let lineOpacity = 0.3;
 		let lineWidth = 1.15;
+		let lineHighlightOpacity = 0.28;
+		let lineHighlightRadius = 280;
+		let lineHighlightWidth = 0.6;
 
 		const syncColors = () => {
 			accentRgb = toRgbString(
@@ -98,6 +101,18 @@ export default function HeroBackground() {
 			);
 			lineOpacity = getCssNumber("--hero-node-line-opacity", 0.3);
 			lineWidth = getCssNumber("--hero-node-line-width", 1.15);
+			lineHighlightOpacity = getCssNumber(
+				"--hero-node-line-highlight-opacity",
+				0.28,
+			);
+			lineHighlightRadius = getCssNumber(
+				"--hero-node-line-highlight-radius",
+				280,
+			);
+			lineHighlightWidth = getCssNumber(
+				"--hero-node-line-highlight-width",
+				0.6,
+			);
 		};
 
 		const createParticles = () => {
@@ -188,13 +203,36 @@ export default function HeroBackground() {
 					const maxDistance = Math.min(165, width * 0.16);
 
 					if (distance < maxDistance) {
-						const opacity = (1 - distance / maxDistance) * lineOpacity;
+						const linkStrength = 1 - distance / maxDistance;
+						const midpointX = (a.x + b.x) / 2;
+						const midpointY = (a.y + b.y) / 2;
+						const pointerDistance = Math.hypot(
+							midpointX - pointerX,
+							midpointY - pointerY,
+						);
+						const highlight = pointer.active
+							? Math.max(0, 1 - pointerDistance / lineHighlightRadius)
+							: 0;
+
+						const opacity = linkStrength * lineOpacity;
 						context.strokeStyle = `rgba(${lineRgb}, ${opacity})`;
-						context.lineWidth = lineWidth;
+						context.lineWidth =
+							lineWidth + highlight * lineHighlightWidth * 0.4;
 						context.beginPath();
 						context.moveTo(a.x, a.y);
 						context.lineTo(b.x, b.y);
 						context.stroke();
+
+						if (highlight > 0) {
+							context.strokeStyle = `rgba(${accentRgb}, ${
+								linkStrength * highlight * lineHighlightOpacity
+							})`;
+							context.lineWidth = lineWidth + highlight * lineHighlightWidth;
+							context.beginPath();
+							context.moveTo(a.x, a.y);
+							context.lineTo(b.x, b.y);
+							context.stroke();
+						}
 					}
 				}
 			}
