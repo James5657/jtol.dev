@@ -52,9 +52,11 @@ export default function Hero() {
 				type="button"
 			>
 				<span>Scroll</span>
-				<span className="scroll-arrow" aria-hidden="true">
-					<span ref={scrollArrowRef} className="scroll-arrow-fill" />
-				</span>
+				<span
+					ref={scrollArrowRef}
+					className="scroll-arrow"
+					aria-hidden="true"
+				/>
 			</button>
 		</section>
 	);
