@@ -23,6 +23,14 @@ function getCssColor(name: string, fallback: string) {
 	return value || fallback;
 }
 
+function getCssNumber(name: string, fallback: number) {
+	const value = Number.parseFloat(
+		getComputedStyle(document.documentElement).getPropertyValue(name),
+	);
+
+	return Number.isFinite(value) ? value : fallback;
+}
+
 function hexToRgb(hex: string) {
 	const normalized = hex.replace("#", "");
 	const value =
@@ -74,7 +82,9 @@ export default function HeroBackground() {
 		let particles: Particle[] = [];
 		let accentRgb = "236, 15, 51";
 		let textRgb = "24, 22, 20";
-		let lineRgb = "24, 22, 20";
+		let lineRgb = "79, 68, 62";
+		let lineOpacity = 0.3;
+		let lineWidth = 1.15;
 
 		const syncColors = () => {
 			accentRgb = toRgbString(
@@ -82,7 +92,12 @@ export default function HeroBackground() {
 				"236, 15, 51",
 			);
 			textRgb = toRgbString(getCssColor("--text", "#181614"), "24, 22, 20");
-			lineRgb = toRgbString(getCssColor("--line", "#181614"), "24, 22, 20");
+			lineRgb = toRgbString(
+				getCssColor("--hero-node-line", "#4f443e"),
+				"79, 68, 62",
+			);
+			lineOpacity = getCssNumber("--hero-node-line-opacity", 0.3);
+			lineWidth = getCssNumber("--hero-node-line-width", 1.15);
 		};
 
 		const createParticles = () => {
@@ -173,9 +188,9 @@ export default function HeroBackground() {
 					const maxDistance = Math.min(165, width * 0.16);
 
 					if (distance < maxDistance) {
-						const opacity = (1 - distance / maxDistance) * 0.16;
+						const opacity = (1 - distance / maxDistance) * lineOpacity;
 						context.strokeStyle = `rgba(${lineRgb}, ${opacity})`;
-						context.lineWidth = 1;
+						context.lineWidth = lineWidth;
 						context.beginPath();
 						context.moveTo(a.x, a.y);
 						context.lineTo(b.x, b.y);
