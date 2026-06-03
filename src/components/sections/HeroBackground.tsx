@@ -5,6 +5,8 @@ type Particle = {
 	y: number;
 	baseX: number;
 	baseY: number;
+	baseXRatio: number;
+	baseYRatio: number;
 	vx: number;
 	vy: number;
 	size: number;
@@ -14,6 +16,10 @@ type Particle = {
 const PARTICLE_DENSITY = 12500;
 const MAX_PARTICLES = 95;
 const MIN_PARTICLES = 42;
+const MAX_LINK_DISTANCE = 215;
+const LINK_VIEWPORT_RATIO = 0.22;
+const GLOW_RADIUS = 220;
+const GRID_SIZE = 72;
 
 function getCssColor(name: string, fallback: string) {
 	const value = getComputedStyle(document.documentElement)
@@ -61,6 +67,7 @@ function toRgbString(color: string, fallback: string) {
 
 export default function HeroBackground() {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	const gridRef = useRef<HTMLDivElement | null>(null);
 	const pointerRef = useRef({ x: 0.5, y: 0.5, active: false });
 
 	useEffect(() => {
@@ -78,7 +85,9 @@ export default function HeroBackground() {
 		let animationFrame = 0;
 		let width = 0;
 		let height = 0;
+		let devicePixelRatio = 1;
 		let pixelRatio = 1;
+		let lastFrameTime = 0;
 		let particles: Particle[] = [];
 		let accentRgb = "236, 15, 51";
 		let textRgb = "24, 22, 20";
@@ -115,8 +124,8 @@ export default function HeroBackground() {
 			);
 		};
 
-		const createParticles = () => {
-			const count = Math.min(
+		const getParticleCount = () =>
+			Math.min(
 				MAX_PARTICLES,
 				Math.max(
 					MIN_PARTICLES,
@@ -124,50 +133,135 @@ export default function HeroBackground() {
 				),
 			);
 
-			particles = Array.from({ length: count }, (_, index) => {
-				const columnCount = Math.ceil(Math.sqrt(count * (width / height)));
-				const rowCount = Math.ceil(count / columnCount);
-				const column = index % columnCount;
-				const row = Math.floor(index / columnCount);
-				const baseX =
-					((column + 0.5) / columnCount) * width +
-					(Math.random() - 0.5) * Math.min(90, width * 0.08);
-				const baseY =
-					((row + 0.5) / rowCount) * height +
-					(Math.random() - 0.5) * Math.min(90, height * 0.08);
+		const createParticle = (index: number, count: number): Particle => {
+			const columnCount = Math.max(
+				1,
+				Math.ceil(Math.sqrt(count * (width / height))),
+			);
+			const rowCount = Math.max(1, Math.ceil(count / columnCount));
+			const column = index % columnCount;
+			const row = Math.floor(index / columnCount);
+			const baseX =
+				((column + 0.5) / columnCount) * width +
+				(Math.random() - 0.5) * Math.min(90, width * 0.08);
+			const baseY =
+				((row + 0.5) / rowCount) * height +
+				(Math.random() - 0.5) * Math.min(90, height * 0.08);
 
-				return {
-					x: baseX,
-					y: baseY,
-					baseX,
-					baseY,
-					vx: 0,
-					vy: 0,
-					size: 1.2 + Math.random() * 2.2,
-					phase: Math.random() * Math.PI * 2,
-				};
-			});
+			return {
+				x: baseX,
+				y: baseY,
+				baseX,
+				baseY,
+				baseXRatio: baseX / width,
+				baseYRatio: baseY / height,
+				vx: 0,
+				vy: 0,
+				size: 1.2 + Math.random() * 2.2,
+				phase: Math.random() * Math.PI * 2,
+			};
+		};
+
+		const createParticles = () => {
+			const count = getParticleCount();
+			particles = Array.from({ length: count }, (_, index) =>
+				createParticle(index, count),
+			);
+		};
+
+		const getVisualScale = () => {
+			if (devicePixelRatio === 0) {
+				return 1;
+			}
+
+			return Math.max(1, 1 / devicePixelRatio);
+		};
+
+		const syncGridScale = () => {
+			const visualScale = getVisualScale();
+			const gridSize = GRID_SIZE * visualScale;
+
+			gridRef.current?.style.setProperty(
+				"background-size",
+				`${gridSize}px ${gridSize}px`,
+			);
+		};
+
+		const resizeParticles = (previousWidth: number, previousHeight: number) => {
+			const scaleX = width / previousWidth;
+			const scaleY = height / previousHeight;
+
+			for (const particle of particles) {
+				particle.x *= scaleX;
+				particle.y *= scaleY;
+				particle.baseX = particle.baseXRatio * width;
+				particle.baseY = particle.baseYRatio * height;
+				particle.vx *= scaleX;
+				particle.vy *= scaleY;
+			}
 		};
 
 		const resize = () => {
 			const bounds = canvas.getBoundingClientRect();
-			width = bounds.width;
-			height = bounds.height;
-			pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
-			canvas.width = Math.round(width * pixelRatio);
-			canvas.height = Math.round(height * pixelRatio);
+			const previousWidth = width;
+			const previousHeight = height;
+			const wasReady = particles.length > 0 && width > 0 && height > 0;
+			const nextWidth = Math.max(1, bounds.width);
+			const nextHeight = Math.max(1, bounds.height);
+			const nextDevicePixelRatio = window.devicePixelRatio || 1;
+			const nextPixelRatio = Math.min(nextDevicePixelRatio, 2);
+			const nextCanvasWidth = Math.round(nextWidth * nextPixelRatio);
+			const nextCanvasHeight = Math.round(nextHeight * nextPixelRatio);
+			const didResize = nextWidth !== width || nextHeight !== height;
+			const didResizeCanvas =
+				canvas.width !== nextCanvasWidth || canvas.height !== nextCanvasHeight;
+
+			width = nextWidth;
+			height = nextHeight;
+			devicePixelRatio = nextDevicePixelRatio;
+			pixelRatio = nextPixelRatio;
+
+			syncGridScale();
+
+			if (didResizeCanvas) {
+				canvas.width = nextCanvasWidth;
+				canvas.height = nextCanvasHeight;
+			}
+
 			context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 			syncColors();
-			createParticles();
+
+			if (
+				particles.length === 0 ||
+				previousWidth === 0 ||
+				previousHeight === 0
+			) {
+				createParticles();
+			} else if (didResize) {
+				resizeParticles(previousWidth, previousHeight);
+			}
+
+			if (wasReady && (didResize || didResizeCanvas)) {
+				draw(lastFrameTime, false);
+			}
 		};
 
-		const draw = (time: number) => {
+		const draw = (time: number, queueNextFrame = true) => {
+			lastFrameTime = time;
 			context.clearRect(0, 0, width, height);
 
 			const pointer = pointerRef.current;
 			const pointerX = pointer.x * width;
 			const pointerY = pointer.y * height;
 			const wave = time * 0.001;
+			const visualScale = getVisualScale();
+			const maxDistance = Math.min(
+				MAX_LINK_DISTANCE * visualScale,
+				width * LINK_VIEWPORT_RATIO,
+			);
+			const scaledLineWidth = lineWidth * visualScale;
+			const scaledLineHighlightWidth = lineHighlightWidth * visualScale;
+			const driftScale = visualScale;
 
 			const sweep = context.createLinearGradient(0, 0, width, height);
 			sweep.addColorStop(0, `rgba(${accentRgb}, 0.04)`);
@@ -177,15 +271,18 @@ export default function HeroBackground() {
 			context.fillRect(0, 0, width, height);
 
 			for (const particle of particles) {
-				const driftX = Math.cos(wave + particle.phase) * 10;
-				const driftY = Math.sin(wave * 0.78 + particle.phase) * 12;
+				const driftX = Math.cos(wave + particle.phase) * 10 * driftScale;
+				const driftY = Math.sin(wave * 0.78 + particle.phase) * 12 * driftScale;
 				const dx = particle.x - pointerX;
 				const dy = particle.y - pointerY;
 				const distance = Math.hypot(dx, dy) || 1;
 				const radius = Math.min(width, height) * 0.34;
 				const pull = pointer.active ? Math.max(0, 1 - distance / radius) : 0;
-				const targetX = particle.baseX + driftX + (dx / distance) * pull * 34;
-				const targetY = particle.baseY + driftY + (dy / distance) * pull * 34;
+				const pointerPush = 34 * visualScale;
+				const targetX =
+					particle.baseX + driftX + (dx / distance) * pull * pointerPush;
+				const targetY =
+					particle.baseY + driftY + (dy / distance) * pull * pointerPush;
 
 				particle.vx += (targetX - particle.x) * 0.018;
 				particle.vy += (targetY - particle.y) * 0.018;
@@ -200,7 +297,6 @@ export default function HeroBackground() {
 					const a = particles[i];
 					const b = particles[j];
 					const distance = Math.hypot(a.x - b.x, a.y - b.y);
-					const maxDistance = Math.min(165, width * 0.16);
 
 					if (distance < maxDistance) {
 						const linkStrength = 1 - distance / maxDistance;
@@ -217,7 +313,7 @@ export default function HeroBackground() {
 						const opacity = linkStrength * lineOpacity;
 						context.strokeStyle = `rgba(${lineRgb}, ${opacity})`;
 						context.lineWidth =
-							lineWidth + highlight * lineHighlightWidth * 0.4;
+							scaledLineWidth + highlight * scaledLineHighlightWidth * 0.4;
 						context.beginPath();
 						context.moveTo(a.x, a.y);
 						context.lineTo(b.x, b.y);
@@ -227,7 +323,8 @@ export default function HeroBackground() {
 							context.strokeStyle = `rgba(${accentRgb}, ${
 								linkStrength * highlight * lineHighlightOpacity
 							})`;
-							context.lineWidth = lineWidth + highlight * lineHighlightWidth;
+							context.lineWidth =
+								scaledLineWidth + highlight * scaledLineHighlightWidth;
 							context.beginPath();
 							context.moveTo(a.x, a.y);
 							context.lineTo(b.x, b.y);
@@ -242,13 +339,15 @@ export default function HeroBackground() {
 					particle.x - pointerX,
 					particle.y - pointerY,
 				);
-				const glow = pointer.active ? Math.max(0, 1 - distance / 220) : 0;
+				const glow = pointer.active
+					? Math.max(0, 1 - distance / (GLOW_RADIUS * visualScale))
+					: 0;
 				context.fillStyle = `rgba(${accentRgb}, ${0.34 + glow * 0.42})`;
 				context.beginPath();
 				context.arc(
 					particle.x,
 					particle.y,
-					particle.size + glow * 2.4,
+					(particle.size + glow * 2.4) * visualScale,
 					0,
 					Math.PI * 2,
 				);
@@ -278,7 +377,7 @@ export default function HeroBackground() {
 			context.fillStyle = beam;
 			context.fillRect(0, 0, width, height);
 
-			if (!reduceMotion.matches) {
+			if (!reduceMotion.matches && queueNextFrame) {
 				animationFrame = window.requestAnimationFrame(draw);
 			}
 		};
@@ -335,7 +434,7 @@ export default function HeroBackground() {
 	return (
 		<div className="hero-background" aria-hidden="true">
 			<canvas ref={canvasRef} className="hero-background-canvas" />
-			<div className="hero-background-grid" />
+			<div ref={gridRef} className="hero-background-grid" />
 			<div className="hero-background-vignette" />
 		</div>
 	);
