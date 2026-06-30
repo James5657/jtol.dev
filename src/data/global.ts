@@ -2,7 +2,7 @@ export const WEBSITE_NAME = "James T. Harrison";
 
 export const WEBSITE_URL = "https://jtol.dev";
 
-export const WEBSITE_VERSION = "development";
+export const WEBSITE_VERSION = "production";
 
 // Contact information
 export const NAME = "James Harrison";
